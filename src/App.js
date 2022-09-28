@@ -18,6 +18,7 @@ import Profile from "./views/dashboard/profile";
 import Orders from "./views/dashboard/orders";
 import ShippingAddress from "./views/dashboard/shippingAddress";
 import {connect} from "react-redux";
+import Register from "./views/register";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
                       <Route path={''} element={<Home/>}>
                       </Route>
                       <Route path={'/login'} element={<Login/>}>
+                      </Route>
+                      <Route path={'/Register'} element={<Register/>}>
                       </Route>
                       <Route path={'/cart'} element={<Cart/>}>
                       </Route>
