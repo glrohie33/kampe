@@ -4,13 +4,14 @@ import banner from '../assets/images/banner_1.jpg'
 import {get} from "../actions/auth";
 import PageContent from "../components/pageContent";
 import PageBanners from "../components/pageBanners";
+import {PAGEURL} from "../utils/texthelper";
 function Home(props) {
 
     const [pageContent,setPageContent] = useState({});
     const abortController = new AbortController();
     const signal = abortController.signal;
     useEffect(()=>{
-            get('/page','',{
+            get(PAGEURL,'',{
                 'Content-Type':'application/json',
                 signal
             })
