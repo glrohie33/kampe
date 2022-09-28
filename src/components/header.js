@@ -23,7 +23,7 @@ function Header({logoutUser}) {
         return auth.isLogin?
             <button onClick={()=>{logoutUser()}}  className={'btn-block btn login-btn'}> Logout</button>
             :
-            <a  href={zoomba('/login')} className={'btn-block btn login-btn'}> Login </a>
+            <a  href={'/login'} className={'btn-block btn login-btn'}> Login </a>
 
     }
 
@@ -94,7 +94,7 @@ function Header({logoutUser}) {
                                         <use xlinkHref={`${profile}#user`}></use>
                                     </svg>
                                 </span>My Dashboard</Link>
-                                <Link to={zoomba('/orders')} className={'flex align-center'}>My Orders</Link>
+                                <Link to={'/orders'} className={'flex align-center'}>My Orders</Link>
                             </div>
                         </div>
                         <div className={'flex flex-center'}>
