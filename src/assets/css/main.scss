@@ -3,6 +3,11 @@ $_title_color:#77838f !important;
 $_darker_black: #1e2022;
 $_flex_directions:('row','column');
 
+@media (max-width: 965px){
+  .sm-none{
+    display: none;
+  }
+}
 
 @for $i from 1 through 12{
 
@@ -25,6 +30,8 @@ padding:5px 10px;
 .productList .product-box{
   width: calc(50% - 8px);
 }
+
+
 
 @media (min-width: 965px) {
   @for $i from 1 through 12{
@@ -360,8 +367,8 @@ header{
   .product-image-container{
     display: flex;
     justify-content: space-evenly;
-    .img{
-      flex-grow: 1;
+    .img-view{
+      max-width: 300px;
     }
     .thumbnails-cover{
       width:80px;

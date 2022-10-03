@@ -67,8 +67,8 @@ function Login(props) {
     return (
         <section className="row">
             <div className="col">
-                <div className={'flex col_12 login-container align-center'}>
-                    <div className={'col_7'}>
+                <div className={'flex flex-wrap col_12 login-container align-center'}>
+                    <div className={'col_7 sm-none'}>
 
                     </div>
                     <div className={'col_5'}>

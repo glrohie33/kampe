@@ -70,8 +70,11 @@ const cart = createSlice({
             window.localStorage.removeItem(CARTTYPE);
         },
         setBasket:(state,{payload})=>{
-            state.basket = payload;
-            window.localStorage.setItem(BASKETNAME,payload);
+            if (payload in basket){
+                state.basket = payload;
+                window.localStorage.setItem(BASKETNAME,payload);
+            }
+
         }
     }
 })

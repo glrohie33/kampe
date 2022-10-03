@@ -88,7 +88,7 @@ function Header({logoutUser}) {
 
                                 </div>
 
-                                <Link to={ zoomba('/dashboard')} className={'flex align-center'}>
+                                <Link to={ '/dashboard'} className={'flex align-center'}>
                                 <span className={'icons icon-md'}>
                                     <svg viewBox={'0 0 24 24'}>
                                         <use xlinkHref={`${profile}#user`}></use>

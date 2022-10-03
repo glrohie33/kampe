@@ -1,15 +1,15 @@
 import React from 'react';
 import {toCurrency} from "../utils/functions";
 
-function ProductBox(props) {
+function ProductBox({cols,colsMobile=2,data}) {
     return (
-        <a href={`/${props.data.slug}`} className={`col_${12/ props.cols} product-box`} style={{}}>
+        <a href={`/${data.slug}`} className={`col_${cols} col_m_${colsMobile}  product-box`} style={{}}>
             <div className={'col-item-inner'}>
                 <div className={'image-cover'}>
-                    <img src={props.data.mainImage} alt={props.data.name}/>
+                    <img src={data?.mainImage} alt={data?.name}/>
                 </div>
-                <h3>{props.data.name}</h3>
-                <p> { toCurrency(props.data.price)}</p>
+                <h3>{data?.name}</h3>
+                <p> { toCurrency(data?.price)}</p>
             </div>
         </a>
     );

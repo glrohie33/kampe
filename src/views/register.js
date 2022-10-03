@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import {TextField} from "@mui/material";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {post} from "../actions/auth";
 import {AUTHALERTNAME, LOGINENDPOINT, REGISTRATIONENDPOINT, SUCCESSALERT, WARNINGALERT} from "../utils/texthelper";
@@ -16,7 +16,7 @@ function Register()
         }
     },[auth, navigate, state?.path]);
 
-    const {referee} = useDispatch();
+    const [search,updateSearchParams] = useSearchParams();
     const dispatch = useDispatch();
     const [form,setForm] = useState({
         email:"",
@@ -26,7 +26,7 @@ function Register()
         firstname:"",
         lastname:"",
         username:"",
-        refereeUsername: referee || ""
+        referee: search.get('referee') || ""
     })
     const [buttonDisabled,setButtonDisabled] = useState(false);
     const setData = ({target:{name,value}})=>{
@@ -64,8 +64,8 @@ function Register()
 
     return  <section className="row">
         <div className="col">
-            <div className={'flex col_12 login-container align-center'}>
-                <div className={'col_7'}>
+            <div className={'flex flex-wrap col_12 login-container align-center'}>
+                <div className={'col_7 sm-none'}>
 
                 </div>
                 <div className={'col_5'}>
@@ -74,14 +74,14 @@ function Register()
                             <h3>
                                 Register
                             </h3>
-                            <TextField name="firstname" size={'small'} required label="Firstname" onKeyUp={setData} />
-                            <TextField name="lastname" size={'small'} required label="Lastname" onKeyUp={setData} />
-                            <TextField name="username" size={'small'} required label="Username" onKeyUp={setData} />
-                            <TextField name="phone" size={'small'} required label="Phone" onKeyUp={setData} />
-                            <TextField name="email" size={'small'} required label="Email" onKeyUp={setData} />
-                            <TextField  name="password" size={'small'} required label="Password" type="password" onKeyUp={setData} />
-                            <TextField  name="confirmPassword" size={'small'} required label="Confirm Password" type="password" onKeyUp={setData} />
-                            <TextField name="referee" size={'small'} required label="Referee Username"  onKeyUp={setData} />
+                            <TextField value={form.firstname} name="firstname" size={'small'} required label="Firstname" onKeyUp={setData} />
+                            <TextField value={form.lastname} name="lastname" size={'small'} required label="Lastname" onKeyUp={setData} />
+                            <TextField  value={form.username} name="username" size={'small'} required label="Username" onKeyUp={setData} />
+                            <TextField value={form.phone} name="phone" size={'small'} required label="Phone" onKeyUp={setData} />
+                            <TextField value={form.email} name="email" size={'small'} required label="Email" onKeyUp={setData} />
+                            <TextField value={form.password}  name="password" size={'small'} required label="Password" type="password" onKeyUp={setData} />
+                            <TextField value={form.confirmPassword} name="confirmPassword" size={'small'} required label="Confirm Password" type="password" onKeyUp={setData} />
+                            <TextField  value={form.referee} name="referee" size={'small'} required label="Referee Username"  onKeyUp={setData} />
                             <div className={'col forgot-password'}>
                                 <div className={'col_6'}>
 
