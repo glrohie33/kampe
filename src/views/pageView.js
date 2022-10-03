@@ -12,8 +12,8 @@ function PageView(props) {
     const dispatch = useDispatch();
     const [content,setPageContent] = useState({});
     const [search,updateSearchParams] = useSearchParams();
-    if (searchParams.basket){
-        dispatch(setBasket(searchParams.basket))
+    if (search.basket){
+        dispatch(setBasket(search.basket))
     }
     const loadPage = (param)=>{
         get(`${PAGEURL}/${param}`)
