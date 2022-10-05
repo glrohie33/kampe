@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useOutletContext} from 'react-router-dom';
-import {get} from "../../actions/auth";
-import {USERSPROFILE} from "../../utils/texthelper";
 import {Edit} from "@mui/icons-material";
 
 function Profile(props) {
@@ -12,7 +10,7 @@ function Profile(props) {
             <div className="box">
                 <div className="title ">
                     <h3>Account Details</h3>
-                    <a className={'icon'}><Edit fontSize={'small'}/></a>
+                    <a href={'/'} className={'icon'}><Edit fontSize={'small'}/></a>
                 </div>
                 <div className="content">
                     <p className={'capitalize text-bold'}>{`${user.firstname} ${user.lastname}`}</p>
@@ -26,7 +24,7 @@ function Profile(props) {
             <div className="box">
                 <div className="title">
                     <h3>Address</h3>
-                    <a className={'icon'}><Edit fontSize={'small'}/></a>
+                    <button className={'icon'}><Edit fontSize={'small'}/></button>
                 </div>
                 <div className="content">
                     <span><i>This is your default shipping address</i></span>

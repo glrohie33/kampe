@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useOutletContext} from "react-router-dom";
 import {formatDate, toCurrency} from "../../utils/functions";
 import OrderItems from "./orderItems";

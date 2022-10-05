@@ -16,7 +16,7 @@ function ShippingAddress(props) {
     },[defaultAddress])
     const setAsDefault = (shippingId)=>{
             post(SETDEFAULTSHIPPING, {shippingId}).then(res =>{
-                const {status,message} = res.data;
+                const {status} = res.data;
                 if (status){
                     dispatch(addAlert({
                         name:AUTHALERTNAME,

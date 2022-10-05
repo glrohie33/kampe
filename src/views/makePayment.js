@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {get, post} from "../actions/auth";
 import {AUTHALERTNAME, ORDERURL} from "../utils/texthelper";
@@ -13,18 +13,18 @@ function MakePayment(props) {
     const navigate  = useNavigate();
     const {orderId} = useParams();
     const [order,setOders] = useState({});
-    const loadOrders = ()=>{
+    const loadOrders = useCallback(()=>{
         get(`${ORDERURL}/${orderId}`).then(res=>{
-            const{order} = res.data
-            if(order && order.paymentStatus != 'complete'){
-                setOders(order);
+                const{order} = res.data
+                if(order && order.paymentStatus !== 'complete'){
+                    setOders(order);
+                }
             }
-        }
 
         ).catch(err=>{
 
         });
-    }
+    },[orderId]);
 
     const finishOrder = (data)=>{
         if(data){
@@ -35,7 +35,7 @@ function MakePayment(props) {
                 if(status){
                     dispatch(clearCart());
                     dispatch(addAlert({name:AUTHALERTNAME,message:'Orders Successful',status:'success'}));
-                    // navigate('/');
+                    navigate('/');
                 }
             }).catch(e=>{
                 console.log(e);
@@ -54,7 +54,7 @@ const orderSummary = useMemo(()=>{
         if(orderId){
             loadOrders();
         }
-    },[]);
+    },[loadOrders,orderId]);
     return (
         <section className={'row checkout cart-view'}>
             <div className={'col flex flex-wrap'}>

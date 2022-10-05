@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from "uuid";
-import {CARTTYPE, COOKIE_EXPIRE, ZOOMBAFRONTENDBASEURL, ZOOMBALINKS} from "./texthelper";
+import {CARTTYPE, COOKIE_EXPIRE, ZOOMBAFRONTENDBASEURL} from "./texthelper";
 export const generateId = ()=>{
     return uuidv4();
 }

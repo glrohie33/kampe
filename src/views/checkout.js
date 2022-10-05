@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment, useMemo, useRef} from 'react';
+import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
 import {get, post} from "../actions/auth";
 import {AUTHALERTNAME, CARTTYPE, CARTURL, ORDERURL, PLATFORMID, SHIPPINGURL, USERDATAURL} from "../utils/texthelper";
 import { Modal, TextField} from "@mui/material";
@@ -7,7 +7,6 @@ import {addAlert} from "../store/reducers/alertSlice";
 import {useDispatch, useSelector} from "react-redux";
 import ShippingAddress from "../components/shippingAddress";
 import {toCurrency, validate} from "../utils/functions";
-import shippingAddress from "../components/shippingAddress";
 import {useNavigate} from "react-router-dom";
 
 function Cart(props) {
@@ -77,7 +76,7 @@ function Cart(props) {
                     if(validation.status){
 
                         post(USERDATAURL+'/shippingAddress',{dataType:'shippingAddress',data:shippingForm}).then(res=>{
-                            const {status,metaData} = res.data;
+                            // const {status,metaData} = res.data;
                             setModalStatus(false);
                             setShippingFormFields(initialData)
                             getUserData();
@@ -93,25 +92,24 @@ function Cart(props) {
         }
     }
 
-    const getDeliveryPrice = ()=>{
-        if(form.shippingAddressId && form.shippingAddressId != shippingAddress.current){
-            const shippingAddress = shippingData.metaData.find(item=>item.id == form.shippingAddressId);
+    const getDeliveryPrice = useCallback(()=>{
+        if(form.shippingAddressId && form.shippingAddressId !== shippingAddress.current){
+            const shippingAddress = shippingData.metaData.find(item=>item.id === form.shippingAddressId);
             if(shippingAddress){
                 const data = {to:shippingAddress.data.city,weight:totalWeight,forwarding:shippingAddress.data.townCode};
                 post(`${SHIPPINGURL}/price`,data)
                     .then(res=>{
-                        const {status,fee} = res.data;
+                        const {fee} = res.data;
                         setShippingPrice(fee);
                     })
             }
-
         }
-    }
+    },[shippingData.metaData,shippingAddress,form.shippingAddressId,totalWeight])
 
     const getUserData = ()=>{
         get(`${USERDATAURL+'/all'}?datatype=shippingAddress`)
             .then(r=>{
-                const {status,userData} = r.data;
+                const {userData} = r.data;
                 setShippingData(userData);
                 setShippingFormFields(d=>({...d,'shippingAddressId':userData.defaultAddress}))
             })
@@ -121,10 +119,12 @@ function Cart(props) {
     const createOrder=()=>{
         post(ORDERURL,form).then(res=>{
             const {status,order} = res.data;
-            dispatch(addAlert({name:AUTHALERTNAME,message:'Orders Created You will be redirected soon',status:'success'}));
-            setTimeout(()=>{
-              navigate('/makePayment/'+order.id)
-            },2000)
+            if (status){
+                dispatch(addAlert({name:AUTHALERTNAME,message:'Orders Created You will be redirected soon',status:'success'}));
+                setTimeout(()=>{
+                    navigate('/makePayment/'+order.id)
+                },2000)
+            }
         }).catch(err=>{
             if(err.response){
                 const {message} = err.response.data;
@@ -147,7 +147,7 @@ function Cart(props) {
         console.log('here');
         getDeliveryPrice();
         shippingAddress.current = form.shippingAddressId;
-    },[form]);
+    },[form,getDeliveryPrice]);
 
     return (
         <section className={'row checkout cart-view'}>
@@ -186,7 +186,7 @@ function Cart(props) {
                         <div className="content">
 
                             {
-                                shippingData?.metaData?.length == 0 &&
+                                shippingData?.metaData?.length === 0 &&
                                 <div className={'no-shipping Address'}>
                                     <p>You Do not have any shipping address? Please add shipping Address</p>
                                 </div>

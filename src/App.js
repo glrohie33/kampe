@@ -17,7 +17,6 @@ import Dashboard from "./views/dashboard/dashboard";
 import Profile from "./views/dashboard/profile";
 import Orders from "./views/dashboard/orders";
 import ShippingAddress from "./views/dashboard/shippingAddress";
-import {connect} from "react-redux";
 import Register from "./views/register";
 
 function App() {

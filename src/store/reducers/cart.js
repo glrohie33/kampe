@@ -36,7 +36,7 @@ const cart = createSlice({
     },
     reducers:{
         addItemToCart:(state,{payload})=>{
-            const index = state.items.products.findIndex(item=>item.productId == payload.productId);
+            const index = state.items.products.findIndex(item=>item.productId === payload.productId);
             state.items.creationTime = new Date().getTime();
 
             if(index > -1){

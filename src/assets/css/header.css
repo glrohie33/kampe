@@ -62,7 +62,7 @@ header{
 .other-menus{
     display: flex;
     flex-grow: 1;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .other-menus .text{
     display: none;

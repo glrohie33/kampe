@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {TextField} from "@mui/material";
-import {get, post} from "../actions/auth";
-import {AUTHALERTNAME, SHIPPINGURL, USERDATAURL} from "../utils/texthelper";
-import {validate} from "../utils/functions";
-import {addAlert} from "../store/reducers/alertSlice";
+import {get} from "../actions/auth";
+import { SHIPPINGURL,} from "../utils/texthelper";
+
 
 function ShippingAddress({form,setFormFields}) {
-    const dispatch = useDispatch();
+
 
     const [states,setStates] = useState([]);
     const [cities,setCities] = useState([]);
@@ -50,48 +47,25 @@ function ShippingAddress({form,setFormFields}) {
 
     const getStates = ()=>{
             get(SHIPPINGURL+'/states').then(res=>{
-                const {status,shippingData} = res.data;
+                const {shippingData} = res.data;
                 setStates(shippingData)
             })
     }
 
     const getCities = (state)=>{
         get(SHIPPINGURL+'/city/'+state).then(res=>{
-            const {status,shippingData} = res.data;
+            const {shippingData} = res.data;
             setCities(shippingData)
         })
     }
 
     const getTowns = (city)=>{
         get(SHIPPINGURL+'/town/'+city).then(res=>{
-            const {status,shippingData} = res.data;
+            const {shippingData} = res.data;
             setTowns(shippingData)
         })
     }
 
-    const submitForm=()=> {
-        const rules = {
-            firstName: ['required'],
-            lastName: ['required'],
-            phoneNumber: ['required'],
-            address: ['required'],
-            state: ['required'],
-            city: ['required'],
-        }
-
-      const validation=validate(form,rules);
-        if(validation.status){
-
-                post(USERDATAURL+'/shippingAddress',{dataType:'shippingAddress',data:form}).then(res=>{
-                    const {status,metaData} = res.data;
-                    console.log(res);
-                }).catch(err=>{
-
-                })
-        }else{
-            dispatch(addAlert({name:AUTHALERTNAME,message:validation.errors}));
-        }
-    }
 
     useEffect(()=>{
         getStates();

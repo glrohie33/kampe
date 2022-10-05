@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import {TextField} from "@mui/material";
-import {Link, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {Link, useLocation, useNavigate,  useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {post} from "../actions/auth";
-import {AUTHALERTNAME, LOGINENDPOINT, REGISTRATIONENDPOINT, SUCCESSALERT, WARNINGALERT} from "../utils/texthelper";
+import {AUTHALERTNAME,REGISTRATIONENDPOINT, SUCCESSALERT, WARNINGALERT} from "../utils/texthelper";
 import {addAlert} from "../store/reducers/alertSlice";
 function Register()
 {
@@ -16,7 +16,7 @@ function Register()
         }
     },[auth, navigate, state?.path]);
 
-    const [search,updateSearchParams] = useSearchParams();
+    const [search] = useSearchParams();
     const dispatch = useDispatch();
     const [form,setForm] = useState({
         email:"",
@@ -28,7 +28,7 @@ function Register()
         username:"",
         referee: search.get('referee') || ""
     })
-    const [buttonDisabled,setButtonDisabled] = useState(false);
+    const [buttonDisabled] = useState(false);
     const setData = ({target:{name,value}})=>{
         setForm(v=>({...v,[name]:value}));
     }
@@ -36,7 +36,7 @@ function Register()
     function  handleSubmit(){
         post(REGISTRATIONENDPOINT,form).then(resp=>{
             if(resp.status){
-                const {status,user}= resp.data
+                const {status}= resp.data
 
                 if(status){
                     dispatch(addAlert({
@@ -74,14 +74,14 @@ function Register()
                             <h3>
                                 Register
                             </h3>
-                            <TextField value={form.firstname} name="firstname" size={'small'} required label="Firstname" onKeyUp={setData} />
-                            <TextField value={form.lastname} name="lastname" size={'small'} required label="Lastname" onKeyUp={setData} />
-                            <TextField  value={form.username} name="username" size={'small'} required label="Username" onKeyUp={setData} />
-                            <TextField value={form.phone} name="phone" size={'small'} required label="Phone" onKeyUp={setData} />
-                            <TextField value={form.email} name="email" size={'small'} required label="Email" onKeyUp={setData} />
-                            <TextField value={form.password}  name="password" size={'small'} required label="Password" type="password" onKeyUp={setData} />
-                            <TextField value={form.confirmPassword} name="confirmPassword" size={'small'} required label="Confirm Password" type="password" onKeyUp={setData} />
-                            <TextField  value={form.referee} name="referee" size={'small'} required label="Referee Username"  onKeyUp={setData} />
+                            <TextField value={form.firstname} name="firstname" size={'small'} required label="Firstname" onChange={setData} />
+                            <TextField value={form.lastname}  name="lastname" size={'small'} required label="Lastname" onChange={setData} />
+                            <TextField  value={form.username} name="username" size={'small'} required label="Username" onChange={setData} />
+                            <TextField value={form.phone} name="phone" size={'small'} required label="Phone" onChange={setData} />
+                            <TextField value={form.email} name="email" size={'small'} required label="Email" onChange={setData} />
+                            <TextField value={form.password}  name="password" size={'small'} required label="Password" type="password" onChange={setData} />
+                            <TextField value={form.confirmPassword} name="confirmPassword" size={'small'} required label="Confirm Password" type="password" onChange={setData} />
+                            <TextField  value={form.referee} name="referee" size={'small'} required label="Referee Username"  onChange={setData} />
                             <div className={'col forgot-password'}>
                                 <div className={'col_6'}>
 

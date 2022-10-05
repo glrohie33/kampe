@@ -1,6 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import slider from '../assets/images/slides_91.jpg'
-import banner from '../assets/images/banner_1.jpg'
+import React, {Fragment, useEffect, useMemo, useState} from 'react';
 import {get} from "../actions/auth";
 import PageContent from "../components/pageContent";
 import PageBanners from "../components/pageBanners";
@@ -8,7 +6,7 @@ import {PAGEURL} from "../utils/texthelper";
 function Home(props) {
 
     const [pageContent,setPageContent] = useState({});
-    const abortController = new AbortController();
+    const abortController = useMemo(()=>new AbortController(),[]);
     const signal = abortController.signal;
     useEffect(()=>{
             get(PAGEURL,'',{
@@ -23,7 +21,7 @@ function Home(props) {
             return ()=>{
                 abortController.abort();
             }
-    },[]);
+    },[abortController,signal]);
     return (
         <Fragment>
             <section className={'row flex flex-w'}>

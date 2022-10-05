@@ -7,14 +7,12 @@ import PageContent from "../components/pageContent";
 import {useDispatch} from "react-redux";
 import {setBasket} from "../store/reducers/cart";
 
-function PageView(props) {
+function PageView() {
     const {slug} = useParams();
     const dispatch = useDispatch();
     const [content,setPageContent] = useState({});
-    const [search,updateSearchParams] = useSearchParams();
-    if (search.basket){
-        dispatch(setBasket(search.basket))
-    }
+    const [search] = useSearchParams();
+
     const loadPage = (param)=>{
         get(`${PAGEURL}/${param}`)
             .then(resp=>{
@@ -25,7 +23,10 @@ function PageView(props) {
     }
     useEffect(()=>{
         loadPage(slug);
-    },[slug])
+        if (search.basket){
+            dispatch(setBasket(search.basket))
+        }
+    },[slug,search.basket,dispatch])
     return (
         <section className={'row'}>
             {

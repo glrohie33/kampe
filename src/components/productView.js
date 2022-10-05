@@ -1,12 +1,11 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {Rating} from "@mui/material";
-import {ArrowDownward, ArrowUpward,AddOutlined,RemoveOutlined} from "@mui/icons-material";
+import {AddOutlined,RemoveOutlined} from "@mui/icons-material";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {get, loadPaymentOptions, post} from "../actions/auth";
+import {loadPaymentOptions, post} from "../actions/auth";
 import {AUTHALERTNAME, CARTTYPE, CARTURL} from "../utils/texthelper";
 import {addAlert} from "../store/reducers/alertSlice";
 import {addItemToCart, baskets, removeItemFromCart, setBasket} from "../store/reducers/cart";
-import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
 import {toCurrency} from "../utils/functions";
 
 function ProductView({content,paymentOptions,loadPaymentOptions}) {
@@ -20,9 +19,9 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
         cartType: CARTTYPE
     });
 
-    const inCart = ()=>{
-        return items.products.find(item=>item.productId==productId);
-    }
+    const inCart = useCallback(()=>{
+        return items.products.find(item=>item.productId===productId);
+    },[items,productId])
 
     useEffect(()=>{
            const product = inCart();
@@ -30,7 +29,7 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
                setSelection(product);
            }
            loadPaymentOptions();
-    },[]);
+    },[inCart,loadPaymentOptions]);
 
     function selectBasket(event){
         const value = event.target.value;
@@ -47,17 +46,17 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
            formData.quantity += Number(value);
            formData.basket = basket;
             post(CARTURL,formData).then(r => {
-                const {message,status} = r.data;
+                const {message} = r.data;
                 setSelection(formData);
                 dispatch(addAlert({name:AUTHALERTNAME,message,status:'success'}))
-                if(formData.quantity == 0){
+                if(formData.quantity === 0){
                     dispatch(removeItemFromCart(formData))
                 }else{
                     dispatch(addItemToCart(formData));
                 }
 
             }).catch(e=>{
-                const {message,status} = e.response.data;
+                const {message} = e.response.data;
                 dispatch(addAlert({name:AUTHALERTNAME,message}))
             });
     }
@@ -101,14 +100,14 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
                                     {
                                         (selection.quantity > 0)&&
                                         <div className="quantity-button">
-                                            <button onClick={addToCart}   className={'btn'} disabled={(selection.quantity == 0)}  onClick={()=>addToCart({target:{name:'dec',value:-1}})}><RemoveOutlined fontSize={'small'}/></button>
+                                            <button   className={'btn'} disabled={(selection.quantity === 0)}  onClick={()=>addToCart({target:{name:'dec',value:-1}})}><RemoveOutlined fontSize={'small'}/></button>
                                             <input type={'number'}  readOnly value={selection.quantity}/>
-                                            <button disabled={(content.productDetails?.quantity == selection.quantity)}  className={'btn'} onClick={()=>addToCart({target:{name:'inc',value:+1}})}><AddOutlined fontSize={'small'}/></button>
+                                            <button disabled={(content.productDetails?.quantity === selection.quantity)}  className={'btn'} onClick={()=>addToCart({target:{name:'inc',value:+1}})}><AddOutlined fontSize={'small'}/></button>
                                         </div>
 
                                     }
                                     {
-                                        (selection.quantity == 0)&&
+                                        (selection.quantity === 0)&&
                                         <button className={'btn add-to-cart btn-block'} onClick={addToCart} value={+1} name={'inc'}>Add to Cart</button>
 
                                     }

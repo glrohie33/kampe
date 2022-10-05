@@ -1,12 +1,11 @@
-import React, {Fragment, useEffect, useMemo, useState} from 'react';
+import React, {Fragment, useEffect,  useState} from 'react';
 import menu from "../assets/images/menu.svg";
 import logo from "../assets/images/logo_9.png";
 import "../assets/css/header.css";
-import cart from "../assets/images/cart.svg";
 import search from "../assets/images/search.svg";
 import profile from "../assets/images/user.svg";
-import {Link, useNavigate} from "react-router-dom";
-import {closeMenu, openMenu, zoomba} from "../utils/functions";
+import {Link} from "react-router-dom";
+import {closeMenu, openMenu} from "../utils/functions";
 import {connect, useSelector} from 'react-redux';
 import { ShoppingCart } from '@mui/icons-material';
 import {logoutUser} from "../store/reducers/auth";
@@ -17,7 +16,6 @@ function Header({logoutUser}) {
     const cart = useSelector(s=>s.cart.items.products)
     const auth = useSelector(store=>store.auth);
     const [categories,setCategories] = useState([]);
-    const navigate = useNavigate();
 
     function loginButton(){
         return auth.isLogin?

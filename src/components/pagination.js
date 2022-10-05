@@ -1,10 +1,6 @@
 import React, {Fragment} from 'react';
-import {useParams, useSearchParams} from "react-router-dom";
 import PaginationLink from "./paginationLink";
 import {
-    ArrowBack,
-    ArrowBackTwoTone,
-    ArrowForwardTwoTone,
     ChevronLeft,
     ChevronRight, FirstPage,
     LastPage
@@ -15,7 +11,6 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
     const startIndex = Math.max(currentPage - numberOfViews,1);
     const items = '2'.repeat(numberOfViews).split('');
     const totalPage = Math.ceil(total/perPage);
-    const pageUrl = window.location.href;
     return (
         <Fragment>
             {

@@ -1,13 +1,8 @@
 import React, {useMemo} from 'react';
-import {Link, NavLink, Outlet, useParams,useResolvedPath,useLocation} from "react-router-dom";
+import { NavLink, Outlet, useLocation} from "react-router-dom";
 import '../../assets/css/dashboard.scss';
-import {
-    AccountBox, AccountBoxOutlined,
-    DashboardOutlined,
-    Inventory,
-    InventoryOutlined,
-    LocalShipping, LocalShippingOutlined,
-    Password, PasswordOutlined
+import {AccountBoxOutlined,
+    InventoryOutlined, LocalShippingOutlined, PasswordOutlined
 } from "@mui/icons-material";
 import ProfilePages from "./profilePages";
 function Dashboard(props) {

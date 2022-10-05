@@ -17,7 +17,7 @@ let api = axios.create({
 
 const handleGlobalError =(response,error)=>{
     // window.location = '/login';
-    if(response.response.status == 401){
+    if(response.response.status === 401){
         store.dispatch(logoutUser());
         window.localStorage.removeItem(STORAGEUSERKEY);
     }
@@ -34,10 +34,7 @@ export const post= (url,data,headers={})=>{
 }
 
 export const get= (url,data={},headers={})=>{
-    let header = {
-    }
 
-    const finalHeader = Object.assign(header,headers);
     return api.get(url,{
         headers:{
             'Content-Type':'application/json',

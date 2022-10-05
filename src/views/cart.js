@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {get, post} from "../actions/auth";
 import {AUTHALERTNAME, CARTTYPE, CARTURL} from "../utils/texthelper";
-import {containerClasses} from "@mui/material";
 import {AddOutlined, Delete, RemoveOutlined} from "@mui/icons-material";
 import {addAlert} from "../store/reducers/alertSlice";
 import {addItemToCart, removeItemFromCart} from "../store/reducers/cart";
@@ -24,23 +23,23 @@ function Cart(props) {
     const addToCart = (event)=>{
         const {name,value,dataset:{id}} = event.currentTarget;
         console.log(cartItems);
-        const item = cartItems.find(itm=>itm.productId == id);
+        const item = cartItems.find(itm=>itm.productId === id);
         if(item) {
             const formData = {...item};
             formData.action = name;
             formData.quantity += Number(value);
             post(CARTURL, formData).then(r => {
-                const {message, status} = r.data;
+                const {message} = r.data;
                 getCartItems();
                 dispatch(addAlert({name: AUTHALERTNAME, message, status: 'success'}))
-                if (formData.quantity == 0) {
+                if (formData.quantity === 0) {
                     dispatch(removeItemFromCart(formData))
                 } else {
                     dispatch(addItemToCart(formData));
                 }
 
             }).catch(e => {
-                const {message, status} = e.response.data;
+                const {message} = e.response.data;
                 dispatch(addAlert({name: AUTHALERTNAME, message}))
             });
         }

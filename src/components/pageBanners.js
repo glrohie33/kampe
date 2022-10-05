@@ -1,6 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
-import slider from "../assets/images/slides_91.jpg";
-import banner from "../assets/images/banner_1.jpg";
+import React, {useEffect, useState} from 'react';
 import {ArrowBack, ArrowForward} from "@mui/icons-material";
 
 function PageBanners({banners :{sideBanners=[],sliders=[]}}) {
@@ -21,7 +19,7 @@ function PageBanners({banners :{sideBanners=[],sliders=[]}}) {
         if(nextSlide < 0){
             nextSlide =  sliders.length - 1;
         }
-        if(nextSlide == sliders.length){
+        if(nextSlide === sliders.length){
             nextSlide  = 0;
         }
         setCurrentSlide(nextSlide);
@@ -42,7 +40,7 @@ function PageBanners({banners :{sideBanners=[],sliders=[]}}) {
              clearInterval(interval);
          }
         }
-    },[])
+    },[interval])
 
 
 
@@ -51,7 +49,7 @@ function PageBanners({banners :{sideBanners=[],sliders=[]}}) {
             <div className={'home-slider flex'}>
                 {
                     sliders.map((slider,index)=>(
-                        <a href={slider.link} className={`flex slider ${(index==currentSlide)?'active':''}`} title={slider.name} key={slider.id}>
+                        <a href={slider.link} className={`flex slider ${(index===currentSlide)?'active':''}`} title={slider.name} key={slider.id}>
                             <img src={slider.url} alt={slider.name} />
                         </a>
                     ))

@@ -1,6 +1,6 @@
 import {get} from "../../actions/auth";
 import {USERDATAURL, USERSORDERS, USERSPROFILE} from "../../utils/texthelper";
-import {memo, useState,useEffect} from "react";
+import {memo, useState, useEffect, useCallback} from "react";
 const urls = {
     profile: USERSPROFILE,
     orders: USERSORDERS,
@@ -9,12 +9,10 @@ const urls = {
 
 
 function ProfilePages({page,render}) {
-    useEffect(()=>{
-        loadData();
-    },[page])
+
 
     const [data,setData] = useState([]);
-    function loadData(){
+    const loadData = useCallback(()=>{
         get(urls[page]).then(({status,data})=>{
             if(status){
                 setData(data);
@@ -22,8 +20,10 @@ function ProfilePages({page,render}) {
         }).catch(e=>{
             console.log(e)
         })
-    }
-
+    },[page]);
+    useEffect(()=>{
+        loadData();
+    },[page,loadData])
     return (
         <>
             {

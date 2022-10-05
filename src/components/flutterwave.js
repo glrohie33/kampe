@@ -6,7 +6,7 @@ import { addAlert } from '../store/reducers/alertSlice';
 
 export default function Flutterwave({order,finishOrder}) {
     const dispatch = useDispatch();
-    const {paymentRef,grandTotal,downPayment,user:{firstname,lastname,phoneNumber,email}} = order;
+    const {paymentRef,downPayment,user:{firstname,lastname,phoneNumber,email}} = order;
     const config = {
         public_key: RAVEKEY,
         tx_ref: paymentRef,
