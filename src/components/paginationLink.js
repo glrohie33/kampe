@@ -6,6 +6,7 @@ function PaginationLink({value,name,children}) {
     const [url,setUrl ] = useState('');
     const buildParams = useCallback(()=>{
         const path = window.location.pathname;
+        console.log(...others);
         const newurl = new URLSearchParams(others);
         const strurl = `${path}?${newurl.toString()}`;
         setUrl(strurl);

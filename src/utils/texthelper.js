@@ -34,3 +34,4 @@ export const TOPCATEGORIES = `${ZOOMBABASEURL}/categories/topcategories`;
 export const ZOOMBAFRONTENDBASEURL = process.env.REACT_APP_ZOOMBA_LINK;
 export const COOKIE_EXPIRE =  2 * 24 * 60 * 60 * 1000;
 export const BASKETNAME = 'zoombaKampeBasket';
+export const BASEURL = process.env.REACT_APP_BASE_URL ;

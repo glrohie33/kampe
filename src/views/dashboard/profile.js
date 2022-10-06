@@ -1,9 +1,21 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useOutletContext} from 'react-router-dom';
 import {Edit} from "@mui/icons-material";
+import {AUTHALERTNAME, BASEURL} from "../../utils/texthelper";
+import {useDispatch} from "react-redux";
+import {addAlert} from "../../store/reducers/alertSlice";
 
 function Profile(props) {
     const {data:{user={}}} = useOutletContext();
+    const dispatch = useDispatch();
+    const refLink = useRef();
+    function copylink(){
+        const input = refLink.current;
+        input.select();
+        input.setSelectionRange(0,9999999);
+        navigator.clipboard.writeText(input.value);
+        dispatch(addAlert({name:AUTHALERTNAME,message:'Referral link copied '+input.value,status:'success'}))
+    }
     return (
     <div className="flex flex-grow flex-wrap">
         <div className="col_6 details">
@@ -15,7 +27,8 @@ function Profile(props) {
                 <div className="content">
                     <p className={'capitalize text-bold'}>{`${user.firstname} ${user.lastname}`}</p>
                     <p>{user.email}</p>
-                    <p>{user.username}</p>
+                    <p> <input readOnly={true} ref={refLink} value={`${BASEURL}/referee=${user.username}`} />  </p>
+                    <p><button className={'btn'} onClick={copylink}>Copy link</button></p>
                 </div>
 
             </div>

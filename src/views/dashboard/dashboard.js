@@ -48,7 +48,7 @@ function Dashboard(props) {
                                     <h3>{page}</h3>
                                 </div>
                                 <div className="content">
-                                    <ProfilePages page={page.toLowerCase()}  render={(data)=> {
+                                    <ProfilePages page={page.toLowerCase()}  render={(data,reload)=> {
                                         console.log(data);
                                         return (<Outlet context={{data}}/>
                                     )}} />

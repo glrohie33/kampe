@@ -12,8 +12,8 @@ function ProfilePages({page,render}) {
 
 
     const [data,setData] = useState([]);
-    const loadData = useCallback(()=>{
-        get(urls[page]).then(({status,data})=>{
+    const loadData = useCallback((currentPage=1)=>{
+        get(`${urls[page]}?currentPage=${currentPage}&perPage=10`).then(({status,data})=>{
             if(status){
                 setData(data);
             }
@@ -27,7 +27,7 @@ function ProfilePages({page,render}) {
     return (
         <>
             {
-                render(data||[])
+                render(data||[],loadData)
             }
         </>
     );

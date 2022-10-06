@@ -2,15 +2,17 @@ import React from 'react';
 import {useOutletContext} from "react-router-dom";
 import {formatDate, toCurrency} from "../../utils/functions";
 import OrderItems from "./orderItems";
+import Pagination from "../../components/pagination";
 
 function Orders(props) {
-    const {data:{orders=[]}} = useOutletContext();
-
+    const {data} = useOutletContext();
+  const  {orders=[],perPage,currentPage,total} = data?.orders || {};
 
     return (
-        <div className={'flex flex-wrap'}>
+        <>
+            <div className={'flex flex-wrap'}>
             {
-                orders.map(order=>(
+                orders?.map(order=>(
                     <div className={'col_12'}>
                         <div className="col">
                             <div className="card order-item">
@@ -35,8 +37,10 @@ function Orders(props) {
                     </div>
                 ))
             }
-
         </div>
+            <Pagination currentPage={currentPage} perPage={perPage} total={total} />
+        </>
+
     );
 }
 
