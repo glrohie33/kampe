@@ -13,7 +13,7 @@ function Profile(props) {
         const input = refLink.current;
         input.select();
         input.setSelectionRange(0,9999999);
-        navigator.clipboard.writeText(input.value);
+        window.navigator.clipboard.writeText(input.value);
         dispatch(addAlert({name:AUTHALERTNAME,message:'Referral link copied '+input.value,status:'success'}))
     }
     return (
@@ -27,7 +27,7 @@ function Profile(props) {
                 <div className="content">
                     <p className={'capitalize text-bold'}>{`${user.firstname} ${user.lastname}`}</p>
                     <p>{user.email}</p>
-                    <p> <input readOnly={true} ref={refLink} value={`${BASEURL}/referee=${user.username}`} />  </p>
+                    <p> <input readOnly={true} ref={refLink} value={`${BASEURL}/register?referee=${user.username}`} />  </p>
                     <p><button className={'btn'} onClick={copylink}>Copy link</button></p>
                 </div>
 
