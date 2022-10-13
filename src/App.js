@@ -18,11 +18,17 @@ import Profile from "./views/dashboard/profile";
 import Orders from "./views/dashboard/orders";
 import ShippingAddress from "./views/dashboard/shippingAddress";
 import Register from "./views/register";
+import {Helmet} from "react-helmet";
 
 function App() {
   return (
       <BrowserRouter>
           <div className="App">
+              <Helmet>
+                  <title>Zoomba Kampe Nigeria</title>
+                  <meta name="description" content="No 1 store to get your foodstuff" />
+                  <meta name="theme-color" content="#E6E6FA" />
+              </Helmet>
               <Displayalerts name={AUTHALERTNAME}></Displayalerts>
               <Header className="App-header">
               </Header>

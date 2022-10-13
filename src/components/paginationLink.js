@@ -1,22 +1,18 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, {useMemo} from 'react';
 
-function PaginationLink({value,name,children}) {
-    const {slug,...others} = useParams();
-    const [url,setUrl ] = useState('');
-    const buildParams = useCallback(()=>{
-        const path = window.location.pathname;
-        console.log(...others);
-        const newurl = new URLSearchParams(others);
-        const strurl = `${path}?${newurl.toString()}`;
-        setUrl(strurl);
-    },[others])
-    useEffect(()=>{
-      buildParams();
-    },[buildParams]);
+function PaginationLink({value,name,children,search=""}) {
+    const url = useMemo(()=>{
+        const newurl = new URLSearchParams(search);
+        if (newurl.has('currentPage')){
+            newurl.set('currentPage',value);
+        }else{
+            newurl.append('currentPage',value);
+        }
+        return newurl.toString();
+    },[search,value]);
 
     return (
-        <a href={url} className={'btn pg-btn btn-default'}>
+        <a href={`?${url}`} className={'btn pg-btn btn-default'}>
             {
                 children
             }

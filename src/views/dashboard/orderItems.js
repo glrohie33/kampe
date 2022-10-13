@@ -6,7 +6,7 @@ function OrderItems({items}) {
         <>
             {
                 items.map(item=>(
-                    <div className="box order-items">
+                    <div className="box order-items" key={item._id}>
                         <div className="content">
                             <div className="flex">
                                 <div className="img-container">

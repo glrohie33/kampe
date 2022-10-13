@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useMemo} from 'react';
 import PaginationLink from "./paginationLink";
 import {
     ChevronLeft,
@@ -11,6 +11,9 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
     const startIndex = Math.max(currentPage - numberOfViews,1);
     const items = '2'.repeat(numberOfViews).split('');
     const totalPage = Math.ceil(total/perPage);
+    const search = useMemo(()=>{
+        return new URL(window.location).search;
+    },[]);
     return (
         <Fragment>
             {
@@ -20,10 +23,10 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
                     {
                         currentPage>1&&
                         <Fragment>
-                            <PaginationLink name={'page'} value={''}>
+                            <PaginationLink search={search} name={'page'} value={1}>
                                 <ChevronLeft  fontSize={'small'}/>
                             </PaginationLink>
-                            <PaginationLink name={'page'} value={currentPage - 1}>
+                            <PaginationLink search={search} name={'page'} value={currentPage - 1}>
                                 <FirstPage fontSize={'small'}/>
                             </PaginationLink>
                         </Fragment>
@@ -31,7 +34,7 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
 
                     {
                         items.map((item,index)=>(
-                                <PaginationLink name={'page'} value={(startIndex+index)}>
+                                <PaginationLink search={search} name={'page'}  key= {index} value={(startIndex+index)}>
                                     {
                                         (startIndex+index)
                                     }
@@ -43,10 +46,10 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
                     {
                         currentPage<totalPage&&
                         <Fragment>
-                            <PaginationLink name={'page'} value={currentPage+1}>
+                            <PaginationLink search={search} name={'page'} value={Number(currentPage) + 1}>
                                 <ChevronRight fontSize={'small'}/>
                             </PaginationLink>
-                            <PaginationLink name={'page'} value={totalPage}>
+                            <PaginationLink search={search} name={'page'} value={totalPage}>
                                 <LastPage fontSize={'small'}/>
                             </PaginationLink>
                         </Fragment>

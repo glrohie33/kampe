@@ -13,7 +13,7 @@ function Orders(props) {
             <div className={'flex flex-wrap'}>
             {
                 orders?.map(order=>(
-                    <div className={'col_12'}>
+                    <div className={'col_12'} key={order.id}>
                         <div className="col">
                             <div className="card order-item">
                                 <div className="title">
