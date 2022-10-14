@@ -6,7 +6,8 @@ import {CreateElement} from "../components/createElement";
 import PageContent from "../components/pageContent";
 import {useDispatch} from "react-redux";
 import {setBasket} from "../store/reducers/cart";
-
+import {Parser} from "html-to-react";
+const htmlToReact = new Parser();
 function PageView() {
     const {slug} = useParams();
     const dispatch = useDispatch();
@@ -37,6 +38,12 @@ function PageView() {
             {
                 CreateElement(content.view,{content})
             }
+
+            <div className={'col card text-content'}>
+                {
+                   htmlToReact.parse(content.textContent || '')
+                }
+            </div>
         </section>
     );
 }
