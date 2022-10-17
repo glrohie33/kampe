@@ -367,16 +367,20 @@ header{
   .product-image-container{
     display: flex;
     justify-content: space-evenly;
-    .img-view{
-      max-width: 300px;
+    .main-image-cover{
+      flex-grow: 1;
+      img{
+        width: 100%;
+      }
     }
     .thumbnails-cover{
-      width:80px;
+      width:90px;
       padding: 10px 5px;
       img{
         width:100%;
         border:1px solid $_border_color;
         border-radius: 2px;
+        cursor: pointer;
       }
     }
   }

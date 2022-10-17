@@ -18,6 +18,7 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
         options:[],
         cartType: CARTTYPE
     });
+    const [mainImage,setMainImage] = useState(0);
 
     const inCart = useCallback(()=>{
         return items.products.find(item=>item.productId===productId);
@@ -68,11 +69,14 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
                         <div className="card flex flex-wrap flex-row product-description-container">
                             <div className={'col_6 '}>
                                 <div className="col product-image-container">
-                                    <img src={content.productDetails?.mainImage} alt={'product'}/>
+                                    <div className={'main-image-cover'}>
+                                        <img src={content.productDetails?.productImages[mainImage].url} alt={'product'}/>
+                                    </div>
+
                                     <div className={'thumbnails-cover'}>
                                         {
-                                            content.productDetails?.productImages.map(img=>(
-                                                <img src={img.url} alt={img.name}/>
+                                            content.productDetails?.productImages.map((img,ind)=>(
+                                                <img src={img.url} alt={img.name} key={img.id} onClick={()=>setMainImage(ind)}/>
                                             ))
                                         }
                                     </div>

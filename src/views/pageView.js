@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {setBasket} from "../store/reducers/cart";
 import {Parser} from "html-to-react";
 const htmlToReact = new Parser();
+const query = new URL(window.location).search;
 function PageView() {
     const {slug} = useParams();
     const dispatch = useDispatch();
@@ -15,7 +16,8 @@ function PageView() {
     const [search] = useSearchParams();
 
     const loadPage = (param)=>{
-        get(`${PAGEURL}/${param}`)
+
+        get(`${PAGEURL}/${param}${query}`)
             .then(resp=>{
                 if(resp.status){
                     setPageContent(resp.data);
@@ -38,12 +40,16 @@ function PageView() {
             {
                 CreateElement(content.view,{content})
             }
+            {
+                (content.textContent) &&
+                <div className={'col card text-content'}>
+                    {
+                        htmlToReact.parse(content.textContent)
+                    }
+                </div>
 
-            <div className={'col card text-content'}>
-                {
-                   htmlToReact.parse(content.textContent || '')
-                }
-            </div>
+            }
+
         </section>
     );
 }
