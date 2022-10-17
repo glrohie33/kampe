@@ -3,10 +3,10 @@ import {CreateElement} from "./createElement";
 import { Rating} from "@mui/material";
 import AttributesList from "./attributesList";
 import Pagination from "./pagination";
-import {useParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 function ProductList({content}){
-    const {page}= useParams();
+    const [search]= useSearchParams();
     return (
         <div className={'col flex product-list flex-wrap'}>
             <div className="col_3 product-list-sidebar">
@@ -75,7 +75,7 @@ function ProductList({content}){
                                 }
                             </div>
                             <div>
-                                <Pagination currentPage={page??1} perPage={20} total={content.productList.total}></Pagination>
+                                <Pagination currentPage={search.get('currentPage')||1} perPage={2} total={content.productList.total}></Pagination>
                             </div>
 
                         </div>

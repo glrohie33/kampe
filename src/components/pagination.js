@@ -6,11 +6,12 @@ import {
     LastPage
 } from "@mui/icons-material";
 
-function Pagination({max,currentPage,total,numberOfViews=3,perPage=2}) {
+function Pagination({max,currentPage,total,numberOfViews=3,perPage=20}) {
     //this is to return 1 incase the start index goes to negative
     const startIndex = Math.max(currentPage - numberOfViews,1);
-    const items = '2'.repeat(numberOfViews).split('');
     const totalPage = Math.ceil(total/perPage);
+    const totalLinks = (totalPage < 3)?totalPage:numberOfViews;
+    const items = Array(totalLinks).fill('');
     const search = useMemo(()=>{
         return new URL(window.location).search;
     },[]);
