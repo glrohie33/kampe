@@ -64,6 +64,7 @@ function ProductList({content}){
                     <div className="card">
                         <div className="title">
                             <h3>{content.name}</h3>
+
                         </div>
                         <div className="content">
                             <div className="flex flex-wrap productList">
@@ -75,7 +76,7 @@ function ProductList({content}){
                                 }
                             </div>
                             <div>
-                                <Pagination currentPage={search.get('currentPage')||1} perPage={2} total={content.productList.total}></Pagination>
+                                <Pagination currentPage={search.get('currentPage')||1} perPage={20} total={content.productList.total}></Pagination>
                             </div>
 
                         </div>
