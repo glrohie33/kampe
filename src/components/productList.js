@@ -71,7 +71,7 @@ function ProductList({content}){
                                 {
                                     content.productList?.products?.map(data=>(
 
-                                        CreateElement('productBox',{data,cols:3})
+                                        CreateElement('productBox',{data,cols:4})
                                     ))
                                 }
                             </div>
