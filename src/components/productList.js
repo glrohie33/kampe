@@ -70,7 +70,6 @@ function ProductList({content}){
                             <div className="flex flex-wrap productList">
                                 {
                                     content.productList?.products?.map(data=>(
-
                                         CreateElement('productBox',{data,cols:4})
                                     ))
                                 }

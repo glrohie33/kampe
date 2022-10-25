@@ -22,9 +22,9 @@ function PageContent({contents}) {
                                     </div>)
                                 }
 
-                                <div className={`flex flex-wrap space-between  ${className.join(' ')} ${content.type}`}>
+                                <div className={`flex flex-wrap space-between  ${className.join(' ')} ${content.type} ${content.colsMobile}`}>
                                     {
-                                        <Items items={content.items} viewType={content.type} cols={content.cols}/>
+                                        <Items items={content.items} viewType={content.type}  cols={content.cols} colsMobile={content.colsMobile}/>
                                     }
                                 </div>
                             </div>

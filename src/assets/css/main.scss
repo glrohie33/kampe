@@ -17,6 +17,15 @@ $_flex_directions:('row','column');
 
 }
 
+@for $i from 1 through 12{
+
+  $_width : calc($i/12) * 100;
+  $_perc : '%';
+  .col_m_#{$i} {
+    width: calc(#{$_width}#{$_perc} - 8px) !important;
+  }
+}
+
 .input.form-control{
   height: 30px;
   width: 100%;
