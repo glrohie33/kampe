@@ -63,7 +63,7 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
     }
     return (
         <Fragment>
-            <div className="col no-padding-top flex product-description">
+            <div className="col flex-wrap no-padding-top flex product-description">
                 <div className="col_9">
                     <div className="col no-padding-top">
                         <div className="card flex flex-wrap flex-row product-description-container">
@@ -174,7 +174,7 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
                     {/*</div>*/}
                 </div>
 
-                <div className={'col_3 side-bar'}>
+                <div className={'col_3 side-bar sm-none'}>
                         <div className="col no-padding-top">
                             <div className="card">
                                 <div className={'title'}>Payment Options</div>
