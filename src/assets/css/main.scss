@@ -742,6 +742,10 @@ input[type='radio']:checked ~ label.reactive{
       width: unset;
       object-fit: contain;
     }
+
+    h3{
+      text-align: left;
+    }
   }
 
 }
