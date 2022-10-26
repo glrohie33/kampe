@@ -47,6 +47,7 @@ function Cart(props) {
 
     const navigate = useNavigate();
 
+
     // const totalWeight = useMemo(()=>{
     //       const weight = cart.reduce((a,b)=>a+b.weight,0);
     //       return weight;
