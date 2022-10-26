@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useMemo, useRef, useCallback} from 'react';
+import React, {useEffect, useState, useMemo, useRef} from 'react';
 import {get, post} from "../actions/auth";
-import {AUTHALERTNAME, CARTTYPE, CARTURL, ORDERURL, PLATFORMID, SHIPPINGURL, USERDATAURL} from "../utils/texthelper";
+import {AUTHALERTNAME, CARTTYPE, CARTURL, ORDERURL, PLATFORMID,  USERDATAURL} from "../utils/texthelper";
 import { Modal, TextField} from "@mui/material";
 import { Close,} from "@mui/icons-material";
 import {addAlert} from "../store/reducers/alertSlice";
@@ -47,10 +47,10 @@ function Cart(props) {
 
     const navigate = useNavigate();
 
-    const totalWeight = useMemo(()=>{
-          const weight = cart.reduce((a,b)=>a+b.weight,0);
-          return weight;
-    },[cart])
+    // const totalWeight = useMemo(()=>{
+    //       const weight = cart.reduce((a,b)=>a+b.weight,0);
+    //       return weight;
+    // },[cart])
 
 
 
