@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "../assets/images/logo_9.png";
+import logo from "../assets/images/Kampe Logo  (white).png";
 import '../assets/css/footer.scss';
 function Footer(props) {
     return (
@@ -7,24 +7,21 @@ function Footer(props) {
             <footer>
             <section className={'row'}>
                 <div className="col">
-                    <div className="flex">
+                    <div className="flex flex-wrap">
                         <div className="col_4">
                             <h3 className={'col-headers'}>About Us</h3>
                             <ul>
-                                <li><a href="/aboutus">About us</a></li>
+                                <li><a href="/about-us">About us</a></li>
                                 <li><a href="/terms">Terms & Conditon</a></li>
-                                <li><a href="/privacy">Privacy</a></li>
-                                <li><a href="/policy">Policy</a></li>
-                                <li><a href="/aboutus">Report</a></li>
+                                <li><a href="/privacy">Privacy & Policy</a></li>
                             </ul>
                         </div>
                         <div className="col_4">
                             <h3 className={'col-headers'}>Quick Links</h3>
                             <ul>
-                                <li><a href="/aboutus">Sell on Zoomba</a></li>
-                                <li><a href="/terms">Latest Products</a></li>
-                                <li><a href="/privacy">Contact Us</a></li>
-                                <li><a href="/policy">View Cart</a></li>
+                                <li><a href="/about-kampe-page">About Kampe</a></li>
+                                <li><a href="/contact-us">Contact Us</a></li>
+                                <li><a href="/cart">View Cart</a></li>
                             </ul>
                         </div>
                         <div className="col_4">

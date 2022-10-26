@@ -94,7 +94,7 @@ function ProductView({content,paymentOptions,loadPaymentOptions}) {
                                             Object.keys(baskets).map((key)=>
                                                 <option key={key} value={key}  >
                                                     {
-                                                        baskets[key].title
+                                                        baskets[key].title +'  '+toCurrency(baskets[key].min)+' - '+toCurrency(baskets[key].max)
                                                     }
                                                 </option>)
                                         }
