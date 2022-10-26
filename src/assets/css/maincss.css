@@ -172,3 +172,6 @@ text-center{
     min-height: calc(100vh - 300px);
 }
 
+.cart-top{
+    justify-content: space-between;
+}

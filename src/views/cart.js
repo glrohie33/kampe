@@ -3,13 +3,13 @@ import {get, post} from "../actions/auth";
 import {AUTHALERTNAME, CARTTYPE, CARTURL} from "../utils/texthelper";
 import {AddOutlined, Delete, RemoveOutlined} from "@mui/icons-material";
 import {addAlert} from "../store/reducers/alertSlice";
-import {addItemToCart, removeItemFromCart} from "../store/reducers/cart";
+import {addItemToCart, baskets, removeItemFromCart, setBasket} from "../store/reducers/cart";
 import {useDispatch, useSelector} from "react-redux";
 import {toCurrency} from "../utils/functions";
 
 function Cart(props) {
     const [cart,setCart] = useState([]);
-    const cartItems = useSelector(s=>s.cart.items.products);
+    const {items:{products},basket} = useSelector(s=>s.cart);
     const dispatch = useDispatch();
     const getCartItems = ()=>{
        get(`${CARTURL}/${CARTTYPE}`).then(r=>{
@@ -22,12 +22,12 @@ function Cart(props) {
 
     const addToCart = (event)=>{
         const {name,value,dataset:{id}} = event.currentTarget;
-        console.log(cartItems);
-        const item = cartItems.find(itm=>itm.productId === id);
+        const item = products.find(itm=>itm.productId === id);
         if(item) {
             const formData = {...item};
             formData.action = name;
             formData.quantity += Number(value);
+            formData.basket = basket;
             post(CARTURL, formData).then(r => {
                 const {message} = r.data;
                 getCartItems();
@@ -45,6 +45,15 @@ function Cart(props) {
         }
     }
 
+    function selectBasket(event){
+        const value = event.target.value;
+
+        if(!(value  in baskets)){
+            dispatch(addAlert({AUTHALERTNAME,message:'this basket is not a zoomba basket'}));
+        }
+        dispatch(setBasket(value))
+    }
+
     useEffect(()=>{
 getCartItems();
     },[]);
@@ -55,7 +64,20 @@ getCartItems();
                <>
                    <div className={'col_9 side-bar'}>
                        <div className="card">
-                           <div className={'title'}>Cart</div>
+                           <div className={'title cart-top'}>Cart
+                               <div>
+                               <select  onChange={selectBasket} className={'input form-control'} defaultValue={basket}>
+                                   <option>Select Basket</option>
+                                   {
+                                       Object.keys(baskets).map((key)=>
+                                           <option key={key} value={key}  >
+                                               {
+                                                   baskets[key].title
+                                               }
+                                           </option>)
+                                   }
+                               </select>
+                           </div></div>
                            <div className="content">
                                {
                                    cart.map(

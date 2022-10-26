@@ -34,7 +34,7 @@ function Cart(props) {
     const [shippingData,setShippingData] = useState([]);
     const [shippingForm,setShippingFormFields] = useState(initialData);
     const [modalStatus,setModalStatus] = useState(false);
-    const [shippingPrice,setShippingPrice] = useState(0);
+    // const [shippingPrice,setShippingPrice] = useState(0);
     const options = [4,5,6];
     const getCartItems = ()=>{
         get(`${CARTURL}/${CARTTYPE}`).then(r=>{
@@ -52,12 +52,19 @@ function Cart(props) {
           return weight;
     },[cart])
 
+
+
     const cartSummary = useMemo(()=>{
-        const cartTotal = cart.reduce((a,b)=> a + b.total,0)
-        const grandTotal = (cartTotal + shippingPrice) * form.subscriptionPeriod;
+        const cartTotal = cart.reduce((a,b)=> a + b.total,0);
+        let shippingPrice = 1500;
+        if (cartTotal > 50000){
+            shippingPrice = 2000;
+        }
+        const handlingCharge = 750;
+        const grandTotal = (cartTotal + shippingPrice + handlingCharge) * form.subscriptionPeriod;
         const downPercent = grandTotal * (25/100);
-        return {cartTotal,grandTotal,downPercent};
-    },[cart,shippingPrice,form.subscriptionPeriod]);
+        return {cartTotal,grandTotal,downPercent,shippingPrice,handlingCharge};
+    },[cart,form.subscriptionPeriod]);
 
     const component = {
         'shipping' :{
@@ -92,19 +99,19 @@ function Cart(props) {
         }
     }
 
-    const getDeliveryPrice = useCallback(()=>{
-        if(form.shippingAddressId && form.shippingAddressId !== shippingAddress.current){
-            const shippingAddress = shippingData.metaData.find(item=>item.id === form.shippingAddressId);
-            if(shippingAddress){
-                const data = {to:shippingAddress.data.city,weight:totalWeight,forwarding:shippingAddress.data.townCode};
-                post(`${SHIPPINGURL}/price`,data)
-                    .then(res=>{
-                        const {fee} = res.data;
-                        setShippingPrice(fee);
-                    })
-            }
-        }
-    },[shippingData.metaData,shippingAddress,form.shippingAddressId,totalWeight])
+    // const getDeliveryPrice = useCallback(()=>{
+    //     if(form.shippingAddressId && form.shippingAddressId !== shippingAddress.current){
+    //         const shippingAddress = shippingData.metaData.find(item=>item.id === form.shippingAddressId);
+    //         if(shippingAddress){
+    //             const data = {to:shippingAddress.data.city,weight:totalWeight,forwarding:shippingAddress.data.townCode};
+    //             post(`${SHIPPINGURL}/price`,data)
+    //                 .then(res=>{
+    //                     const {fee} = res.data;
+    //                     setShippingPrice(fee);
+    //                 })
+    //         }
+    //     }
+    // },[shippingData.metaData,shippingAddress,form.shippingAddressId,totalWeight])
 
     const getUserData = ()=>{
         get(`${USERDATAURL+'/all'}?datatype=shippingAddress`)
@@ -144,10 +151,9 @@ function Cart(props) {
     },[]);
 
     useEffect(()=>{
-        console.log('here');
-        getDeliveryPrice();
+        // getDeliveryPrice();
         shippingAddress.current = form.shippingAddressId;
-    },[form,getDeliveryPrice]);
+    },[form]);
 
     return (
         <section className={'row checkout cart-view'}>
@@ -273,10 +279,18 @@ function Cart(props) {
                                     </h3>
                                 </div>
                                 <div className={'cart-summary'}>
-                                    <p>shippingPrice</p>
+                                    <p>Handling Charge</p>
                                     <h3>
                                         {
-                                            toCurrency(shippingPrice)
+                                            toCurrency(cartSummary.handlingCharge)
+                                        }
+                                    </h3>
+                                </div>
+                                <div className={'cart-summary'}>
+                                    <p>Shipping Price</p>
+                                    <h3>
+                                        {
+                                            toCurrency(cartSummary.shippingPrice)
                                         }
                                     </h3>
                                 </div>
