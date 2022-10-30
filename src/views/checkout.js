@@ -226,7 +226,7 @@ function Cart(props) {
                                 )
                             }
                             <div className={'add-shipping-button'}>
-                                <button className="btn" onClick={()=>{setModalStatus(true)}}>Add Shiipping Addres</button>
+                                <button className="btn" onClick={()=>{setModalStatus(true)}}>Add Shipping Addres</button>
                             </div>
                         </div>
                     </div>
