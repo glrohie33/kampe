@@ -17,12 +17,19 @@ function PageView() {
 
     const loadPage = useCallback((param)=>{
         const query = new URL(window.location).search;
-        get(`${PAGEURL}/${param}${query}`)
+        // get(`${PAGEURL}/${param}${query}`)
+        //     .then(resp=>{
+        //         if(resp.status){
+        //             setPageContent(resp.data);
+        //         }
+        //     }).catch();
+
+        fetch(`${PAGEURL}/${param}${query}`)
+            .then(resp=>resp.json())
             .then(resp=>{
-                if(resp.status){
-                    setPageContent(resp.data);
-                }
-            }).catch();
+                setPageContent(resp);
+            })
+            .catch(e=>console.log(e));
     },[setPageContent]);
 
     useEffect(()=>{
