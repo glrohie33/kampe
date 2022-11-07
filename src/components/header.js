@@ -1,10 +1,10 @@
-import React, {Fragment, useEffect,  useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import menu from "../assets/images/menu.svg";
 import logo from "../assets/images/logo_9.png";
 import "../assets/css/header.css";
 import search from "../assets/images/search.svg";
 import profile from "../assets/images/user.svg";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {closeMenu, openMenu} from "../utils/functions";
 import {connect, useSelector} from 'react-redux';
 import { ShoppingCart } from '@mui/icons-material';
@@ -16,6 +16,8 @@ function Header({logoutUser}) {
     const cart = useSelector(s=>s.cart.items.products)
     const auth = useSelector(store=>store.auth);
     const [categories,setCategories] = useState([]);
+    const searchRef = useRef();
+    const navigate = useNavigate()
 
     function loginButton(){
         return auth.isLogin?
@@ -37,6 +39,15 @@ function Header({logoutUser}) {
         })
     }
 
+    function searchProduct({code}){
+        console.log(code)
+        if(code.toLowerCase() === 'enter'){
+            const value = searchRef.current.value;
+            if(value){
+                navigate(`/products?search=${value}`);
+            }
+        }
+    }
 
     useEffect(()=>{
             loadCategories();
@@ -58,7 +69,7 @@ function Header({logoutUser}) {
                             </a>
                         </div>
                         <div className={'search-bar'}>
-                            <input type={'text'} placeholder={'Search for Products...'}/>
+                            <input ref={searchRef} type={'text'} placeholder={'Search for Products...'} onKeyDown={searchProduct}/>
                             <span className={'search-icon icons'}>
                                 <svg viewBox={'0 0 24 24'}>
                                 <use xlinkHref={`${search}#search`}>

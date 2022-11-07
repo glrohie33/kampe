@@ -304,7 +304,7 @@ function Cart(props) {
                                     </h3>
                                 </div>
                                 <div className={'cart-summary'}>
-                                    <p>Down Percent</p>
+                                    <p>Upfront Payment</p>
                                     <h3>
                                         {
                                             toCurrency(cartSummary.downPercent)
