@@ -79,6 +79,13 @@ p{
   margin:5px 0px;
 }
 
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
 .btn-block{
   width: 100%;
   display: block;
@@ -89,6 +96,12 @@ p{
   border:1px solid $_border_color;
   color: $_darker_black;
   box-shadow: none;
+}
+
+.btn-orange{
+  background: #FE6847 !important;
+  border-color: #FE6847 !important;
+  color: #fff;
 }
 
 .pg-btn{

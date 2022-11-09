@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 
-function PaginationLink({value,name,children,search=""}) {
+function PaginationLink({value,name,children,search="",isCurrent=false}) {
     const url = useMemo(()=>{
         const newurl = new URLSearchParams(search);
         if (newurl.has('currentPage')){
@@ -12,7 +12,7 @@ function PaginationLink({value,name,children,search=""}) {
     },[search,value]);
 
     return (
-        <a href={`?${url}`} className={'btn pg-btn btn-default'}>
+        <a href={`?${url}`} className={`btn pg-btn ${isCurrent?'btn-orange':'btn-default'}`}>
             {
                 children
             }

@@ -1,4 +1,4 @@
-import React, {Fragment, useMemo} from 'react';
+import React, {Fragment,} from 'react';
 import PaginationLink from "./paginationLink";
 import {
     ChevronLeft,
@@ -8,13 +8,12 @@ import {
 
 function Pagination({max,currentPage,total,numberOfViews=3,perPage=20}) {
     //this is to return 1 incase the start index goes to negative
-    const startIndex = Math.max(currentPage - numberOfViews,1);
+    const startIndex = Math.max(currentPage - numberOfViews,0) + 1;
     const totalPage = Math.ceil(total/perPage);
     const totalLinks = (totalPage < 3)?totalPage:numberOfViews;
     const items = Array(totalLinks).fill('');
-    const search = useMemo(()=>{
-        return new URL(window.location).search;
-    },[]);
+    const search = window.location.search;
+
     return (
         <Fragment>
             {
@@ -35,7 +34,7 @@ function Pagination({max,currentPage,total,numberOfViews=3,perPage=20}) {
 
                     {
                         items.map((item,index)=>(
-                                <PaginationLink search={search} name={'page'}  key= {index} value={(startIndex+index)}>
+                                <PaginationLink search={search} name={'page'} isCurrent={Number(currentPage) === (startIndex + index)}  key= {index} value={(startIndex+index)}>
                                     {
                                         (startIndex+index)
                                     }
