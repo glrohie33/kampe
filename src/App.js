@@ -26,6 +26,7 @@ function App() {
     const headers = useMemo(()=>{
 
         const {title,keywords,description,image} = DEFAULTHEADERS;
+        const url = window.location;
 
         return(<Helmet>
                 <title>{title}</title>
@@ -34,19 +35,26 @@ function App() {
                 <meta name={'site_name'} content={'Zoomba Nigeria'}/>
                 <meta name={'image'} content={image}/>
                 <meta name={'title'} content={title}/>
+                <meta name={'url'} content={url}/>
                 <meta itemProp='description' content={description}/>
                 <meta itemProp={'keywords'} content={keywords}/>
                 <meta itemProp={'site_name'} content={'Zoomba Nigeria'}/>
                 <meta itemProp={'image'} content={image}/>
+                <meta itemProp={'url'} content={url}/>
+
                 <meta name={'twitter:card'} content={'summary_large_image'}/>
                 <meta name={'twitter:title'} content={title}/>
                 <meta name={'twitter:description'} content={description}/>
                 <meta name={'twitter:image:src'} content={image}/>
+                <meta name={'twitter:url'} content={url}/>
+
                 <meta property='og:description' content={description}/>
                 <meta property={'og:keywords'} content={keywords}/>
                 <meta property={'og:site_name'} content={'Zoomba Nigeria'}/>
                 <meta property={'og:image'} content={image}/>
                 <meta property={'og:title'} content={title}/>
+                <meta property={'og:url'} content={url}/>
+
             </Helmet>
         )
 

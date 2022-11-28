@@ -42,6 +42,7 @@ function PageView() {
     const headers = useMemo(()=>{
 
         let {title,keywords,description,image} = DEFAULTHEADERS;
+        const url = window.location;
         if(content.view === 'productView'){
             const {productDetails:{tags,description:productDescription,name,mainImage}} = content;
             keywords = tags.join(',');
@@ -57,6 +58,7 @@ function PageView() {
                     <meta name={'site_name'} content={'Zoomba Nigeria'}/>
                     <meta name={'image'} content={image}/>
                     <meta name={'title'} content={title}/>
+                <meta name={'url'} content={url}></meta>
                     {/*schema markup for google+*/}
                     <meta itemProp='description' content={description}/>
                     <meta itemProp={'keywords'} content={keywords}/>
@@ -71,10 +73,12 @@ function PageView() {
                     {/*    open Graph*/}
                     <meta property='og:description' content={description}/>
                     <meta property={'og:keywords'} content={keywords}/>
-                    <meta property={'og:site_name'} content={'Zoomba Nigeria'}/>
+                    <meta property={'og:site_name'} content={'Zoomba Kampe'}/>
                     <meta property={'og:image'} content={image}/>
                     <meta property={'og:title'} content={title}/>
-                </Helmet>
+                <meta property={'og:url'} content={url}/>
+
+            </Helmet>
             )
 
     },[content])
