@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ${helmet.htmlAttributes.toString()}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -21,7 +23,28 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Zoomba Kampe</title>
+    <title data-react-helmet="true">Zoomba Kampe</title>
+    <meta name='description' content='description' data-react-helmet="true"/>
+    <meta name='keywords' content='keyword' data-react-helmet="true"/>
+    <meta name='site_name' content='Zoomba Nigeria' data-react-helmet="true"/>
+    <meta name='image' content='image' data-react-helmet="true"/>
+    <meta name='title' content='title'  data-react-helmet="true"/>
+
+    <meta itemProp='description' content='description' data-react-helmet="true"/>
+    <meta itemProp='keywords' content='keywords' data-react-helmet="true"/>
+    <meta itemProp='site_name' content='Zoomba Nigeria' data-react-helmet="true"/>
+    <meta itemProp='image' content='image' data-react-helmet="true"/>
+
+    <meta name='twitter:card' content='summary_large_image' data-react-helmet="true"/>
+    <meta name='twitter:title' content='title' data-react-helmet="true"/>
+    <meta name='twitter:description' content='Zoomba Nigeria' data-react-helmet="true"/>
+    <meta name='twitter:image:src' content='image' data-react-helmet="true"/>
+
+    <meta property="og:description" content='description' data-react-helmet="true" />
+    <meta property="og:keywords" content='content' data-react-helmet="true" />
+    <meta property="og:site_name" content='Zoomba Nigeria' data-react-helmet="true"/>
+    <meta property="og:image" content='image' data-react-helmet="true"/>
+    <meta property="og:title" content='title' data-react-helmet="true"/>
     <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

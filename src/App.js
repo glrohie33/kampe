@@ -5,7 +5,7 @@ import './assets/css/maincss.css'
 import './assets/css/main.scss'
 import Home from "./views/home";
 import Login from "./views/login";
-import {AUTHALERTNAME} from "./utils/texthelper";
+import {AUTHALERTNAME, DEFAULTHEADERS} from "./utils/texthelper";
 import Displayalerts from "./components/displayAlert";
 import PageView from "./views/pageView";
 import Cart from "./views/cart";
@@ -19,16 +19,44 @@ import Orders from "./views/dashboard/orders";
 import ShippingAddress from "./views/dashboard/shippingAddress";
 import Register from "./views/register";
 import {Helmet} from "react-helmet";
+import React, {useMemo} from "react";
 
 function App() {
+
+    const headers = useMemo(()=>{
+
+        const {title,keywords,description,image} = DEFAULTHEADERS;
+
+        return(<Helmet>
+                <title>{title}</title>
+                <meta name='description' content={description}/>
+                <meta name={'keywords'} content={keywords}/>
+                <meta name={'site_name'} content={'Zoomba Nigeria'}/>
+                <meta name={'image'} content={image}/>
+                <meta name={'title'} content={title}/>
+                <meta itemProp='description' content={description}/>
+                <meta itemProp={'keywords'} content={keywords}/>
+                <meta itemProp={'site_name'} content={'Zoomba Nigeria'}/>
+                <meta itemProp={'image'} content={image}/>
+                <meta name={'twitter:card'} content={'summary_large_image'}/>
+                <meta name={'twitter:title'} content={title}/>
+                <meta name={'twitter:description'} content={description}/>
+                <meta name={'twitter:image:src'} content={image}/>
+                <meta property='og:description' content={description}/>
+                <meta property={'og:keywords'} content={keywords}/>
+                <meta property={'og:site_name'} content={'Zoomba Nigeria'}/>
+                <meta property={'og:image'} content={image}/>
+                <meta property={'og:title'} content={title}/>
+            </Helmet>
+        )
+
+    },[])
   return (
       <BrowserRouter>
           <div className="App">
-              <Helmet>
-                  <title>Zoomba Kampe Nigeria</title>
-                  <meta name="description" content="No 1 store to get your foodstuff" />
-                  <meta name="theme-color" content="#E6E6FA" />
-              </Helmet>
+                {
+                    headers
+                }
               <Displayalerts name={AUTHALERTNAME}></Displayalerts>
               <Header className="App-header">
               </Header>
